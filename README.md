@@ -14,5 +14,6 @@ Ter uma base inícial "template" para copiar e adicionar no projeto, com fontes 
 
 - [Documentação AI CODEX](https://developers.openai.com/)
 - [Rules OpenAI Dev](https://developers.openai.com/codex/rules)
+- [ai-memory: memória de longo prazo (Karpathy Wiki) e auto-aprendizado (Hermes) pros seus projetos](https://akitaonrails.com/2026/06/16/ai-memory-memoria-longo-prazo-karpathy-wiki-auto-aprendizado-hermes-projetos/)
 
 ---
