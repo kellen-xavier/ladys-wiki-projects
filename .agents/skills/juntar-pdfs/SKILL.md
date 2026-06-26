@@ -1,39 +1,26 @@
 ---
-name: juntar-pdfs-evidencias
+name: juntar-pdfs
 description: >
-  Junta todos os PDFs de cada subpasta de ID em um único PDF compilado, preservando
+  Junta todos os PDFs em um único PDF compilado, preservando
   ordem natural dos arquivos e comprimindo o resultado sem perda de qualidade de imagem.
   Use esta skill sempre que o usuário quiser mesclar, compilar, juntar ou consolidar PDFs
-  organizados em subpastas — especialmente em estruturas de Evidências, Releases, IDs ou
-  qualquer hierarquia onde cada pasta contém um ou mais PDFs que devem virar um arquivo só.
-  Também se aplica quando o usuário mencionar "juntar PDFs por pasta", "compilar evidências",
+  organizados de qualquer hierarquia onde cada pasta contém um ou mais PDFs que devem virar um arquivo só.
+  Também se aplica quando o usuário mencionar "juntar PDFs por pasta",
   "consolidar arquivos PDF", "unir PDFs em sequência" ou estruturas similares.
 ---
 
-# Juntar PDFs por Pasta de Evidências
+# Juntar PDFs por Pasta
 
 ## Visão Geral
 
-Para cada subpasta (`ID NUMERO`) dentro da pasta raiz informada:
+Compilar os PDFs quando solicitado para mesclar em um único arquivo PDF.
 
 1. Lista todos os PDFs em **ordem natural** (`1, 2, 10` — nunca `1, 10, 2`)
 2. **Junta em sequência** sem embaralhar páginas
 3. **Comprime** o PDF final via GhostScript preservando qualidade de imagem
-4. Salva como `[DET] ID NOME-DA-PASTA.pdf` na pasta de saída
+4. Salva como `PDF merge consolidado.pdf` na pasta de saída
 
-## Estrutura Esperada
-
-```txt
-Evidências/
-  ID_0001/
-    [DET] ID 0001.pdf
-  ID_0002/
-    [DET] ID 0002.pdf
-  ID_0010/
-    [DET] ID 00010.pdf
-```
-
-Resultado gerado em `Evidências/merged/` (ou pasta customizada via `--output`):
+Resultado gerado em `\Pasta/merged/` (ou pasta customizada via `--output`):
 
 ```txt
 merged/
@@ -228,15 +215,14 @@ Altere `GS_QUALITY` no topo do script conforme a necessidade:
 
 ## Comportamentos Importantes
 
-- **Ordem natural garantida**: `evidencia_1`, `evidencia_2`, `evidencia_10` — nunca `1, 10, 2`
+- **Ordem natural garantida**: `pdf_1`, `pdf_2`, `pdf_10` — nunca `1, 10, 2`
 - **Sem embaralhamento**: páginas são concatenadas na ordem exata dos arquivos
 - **Pasta de saída excluída**: a pasta `merged/` nunca é processada como subpasta de ID
-- **PDF único por pasta**: cada `ID NUMERO/` gera exatamente um `[DET] ID NUMERO.pdf`
 - **Tolerante a falhas**: uma pasta com erro não interrompe o processamento das demais
 - **Saída de progresso**: lista cada PDF incluído e exibe relatório de compressão
 
 ## Limitações
 
-- Processa apenas **um nível** de subpastas (não recursivo além das pastas de ID e subpastas BUGs)
+- Processa apenas **um nível** de subpastas
 - Não converte `.docx` — para isso use o script `docx_to_pdf.rb` separadamente
 - PDFs protegidos por senha causam falha no `qpdf` para aquela pasta
